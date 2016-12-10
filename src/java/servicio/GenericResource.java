@@ -45,6 +45,7 @@ public class GenericResource {
         udao.autenticacion(rut, clave);
         usuario.setNombre(udao.nombre());
         usuario.setApellido(udao.apellido());
+        usuario.setId(udao.id());
         Gson gson=new Gson();
         return gson.toJson(usuario);
     }
@@ -97,7 +98,16 @@ public class GenericResource {
         return"Exito!";
     }
     
+    @GET
+    @Path("/obtenerTarea")
+    public String obtenerTarea(@QueryParam("idUsuario")int idUsuario) throws SQLException{
+        TareaDAO tdao=new TareaDAO();
+        Gson gson=new Gson();
+        return gson.toJson(tdao.obtenerTarea(idUsuario));
+    }
     
+    
+       
     
     
     
