@@ -3,12 +3,14 @@ package DAO;
 
 import BD.Conexion;
 import Entidad.Obra;
+import Entidad.PreguntaFormulario;
 import Entidad.Tarea;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
+import java.util.StringTokenizer;
 
 public class TareaDAO {
     
@@ -42,4 +44,36 @@ public class TareaDAO {
      return listaTarea;
     }
     
+    public void insertarTareaLista(int idTareaAsignada, String respuesta) throws SQLException{
+              
+        int i=1;
+        LinkedList<PreguntaFormulario> listaRespuesta=new LinkedList<PreguntaFormulario>();
+        String delimitador=",";
+    StringTokenizer stringTokenizer=new StringTokenizer(respuesta, delimitador);
+    while(stringTokenizer.hasMoreTokens()){
+        
+        String query="insert into formulario_completo(id_tarea_asignada,id_pregunta,respuesta,fecha)\n" +
+                        "values("+idTareaAsignada+","+i+++",'"+stringTokenizer.nextToken()+"',GETDATE());";
+        Connection connection=Conexion.conectarBD();
+        Statement statement= connection.createStatement();
+        statement.executeUpdate(query);
+
+    }  
+    }    
+    
+    
+     public LinkedList<PreguntaFormulario> separarRespuesta(int idTareaAsignada,String respuesta){
+         int i=1;
+        LinkedList<PreguntaFormulario> listaRespuesta=new LinkedList<PreguntaFormulario>();
+        String delimitador=",";
+    StringTokenizer stringTokenizer=new StringTokenizer(respuesta, delimitador);
+    while(stringTokenizer.hasMoreTokens()){
+        PreguntaFormulario pf=new PreguntaFormulario();
+        pf.setRespuesta(stringTokenizer.nextToken());
+        pf.setIdPregunta(i++);
+        pf.setIdTareaAsignada(idTareaAsignada);
+        listaRespuesta.add(pf);
+    }
+    return listaRespuesta;
+     }
 }

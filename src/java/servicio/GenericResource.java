@@ -106,6 +106,25 @@ public class GenericResource {
         return gson.toJson(tdao.obtenerTarea(idUsuario));
     }
     
+    @GET
+    @Path("/formularioCompleto")
+    public String formularioCompleto(@QueryParam("idTareaAsignada")int idTareaAsignada, @QueryParam("respuesta") String respuesta) throws SQLException{
+        TareaDAO tdao=new TareaDAO();
+        tdao.insertarTareaLista(idTareaAsignada, respuesta);
+        return "Tarea guardada";
+    }
+    
+    
+    @GET
+    @Path("/visualizarPorObra")
+    public String listarFormulario(@QueryParam("idObra")int idObra) throws SQLException{
+        FormularioDAO fdao=new FormularioDAO();
+        Gson gson=new Gson();
+        return gson.toJson(fdao.obtenerFormularioCompleto(idObra));
+    }
+    
+    
+    
     
        
     
