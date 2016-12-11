@@ -3,6 +3,8 @@ package Entidad;
 
 public class FormularioCompleto {
   
+    
+    int idTareaAsignada;
     String obra;
     String sector;
     String subSector;
@@ -10,6 +12,16 @@ public class FormularioCompleto {
     String respuesta;
     String fecha;
     String inspector;
+
+    public int getIdTareaAsignada() {
+        return idTareaAsignada;
+    }
+
+    public void setIdTareaAsignada(int idTareaAsignada) {
+        this.idTareaAsignada = idTareaAsignada;
+    }
+    
+    
 
     public String getObra() {
         return obra;

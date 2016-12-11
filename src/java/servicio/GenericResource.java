@@ -116,11 +116,19 @@ public class GenericResource {
     
     
     @GET
-    @Path("/visualizarPorObra")
-    public String listarFormulario(@QueryParam("idObra")int idObra) throws SQLException{
+    @Path("/visualizar2")
+    public String listarFormulario(@QueryParam("idTareaAsignada")int idObra) throws SQLException{
         FormularioDAO fdao=new FormularioDAO();
         Gson gson=new Gson();
         return gson.toJson(fdao.obtenerFormularioCompleto(idObra));
+    }
+    
+        @GET
+    @Path("/visualizar1")
+    public String visualizar1() throws SQLException{
+        FormularioCompletoDAO fCdao=new FormularioCompletoDAO();
+        Gson gson=new Gson();
+        return gson.toJson(fCdao.obtenerFormularioCompleto1());
     }
     
     
